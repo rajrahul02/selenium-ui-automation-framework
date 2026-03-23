@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import base.BaseTest;
 import pages.LoginPage;
 import utils.DriverFactory;
+import utils.EnvReader;
 import utils.JsonUtil;
 import org.apache.logging.log4j.Logger;
 import utils.Log;
@@ -15,6 +16,9 @@ import utils.Log;
 public class LoginTest extends BaseTest {
 	private LoginPage loginPage;
 	private static final Logger log = Log.getLogger(LoginTest.class);
+	private String baseUrl;
+	private String username;
+	private String password;
 	
 	 @BeforeMethod(alwaysRun = true)
 	    public void pageSetup() {
@@ -23,6 +27,9 @@ public class LoginTest extends BaseTest {
 
 	@Test(groups = {"validlogin"})
 	public void loginTest() {	
+		baseUrl = EnvReader.get("APP_BASE_URL");
+		username = EnvReader.get("APP_USERNAME");
+		password = EnvReader.get("APP_PASSWORD");
 		log.info("Starting login test with " +username+ " and "+password);
 		loginPage.open(baseUrl);
 		loginPage.login(username, password);
@@ -31,6 +38,7 @@ public class LoginTest extends BaseTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void inValidLoginTest() {
+		baseUrl = EnvReader.get("APP_BASE_URL");
 		log.info("Starting invalid login test");
 		loginPage.open(baseUrl);
 		Map<String, String> data = JsonUtil.readJson("src/test/resources/testdata/login.json", Map.class);

@@ -15,6 +15,7 @@ public class LoginPage {
 	private By password = By.id("password");
 	private By loginButton = By.id("login-button");
 	private By errorMsg = By.xpath("//*[@class='error-message-container error']");
+	
 
 	public LoginPage(WebDriver driver) {
 		this.driver = driver;
